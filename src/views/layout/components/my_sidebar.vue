@@ -7,7 +7,7 @@
                     <i class="el-icon-date"></i>画布
                 </el-menu-item>
                 <el-menu-item index="/views/testCanvas">
-                    <i class="el-icon-date"></i>测试canvas
+                    <i class="el-icon-date"></i>测试画图
                 </el-menu-item>
                 <el-menu-item index="/views/test">
                     <i class="el-icon-edit-outline"></i>父子组件传值测试页
