@@ -16,6 +16,9 @@
             <input type="button" value="中" @click="checkpen(5)">
             <input type="button" value="细" @click="checkpen(1)">
         </div>
+        <div>
+            <input type="button" v-model="eraserTitle" @click="checkeraser()">
+        </div>
         <img v-show="false" ref="myImg" src="../../assets/logo.png" alt="">
         <canvas ref="myCanvas" width="1300px" height="500px" style="border: 1px solid #c3c3c3">
             您的浏览器不支持HTML5 canvas标签
@@ -29,6 +32,8 @@
         name: "testCanvas",
         data() {
             return {
+                eraserStatus:false,
+                eraserTitle:"橡皮檫",
                 canvas:null,
                 ctx:null,
                 drawing:false,
@@ -85,6 +90,16 @@
             changecolor(color){
                 this.penColor = color;
             },
+            checkeraser(){
+                this.eraserStatus = !this.eraserStatus;
+                if (this.eraserStatus) {
+                    this.eraserTitle = "正在使用..."
+                } else {
+                    this.eraserTitle = "橡皮檫"
+                }
+            },
+            
+
         },
         mounted(){
             console.log("挂载成功",this.canvas);
