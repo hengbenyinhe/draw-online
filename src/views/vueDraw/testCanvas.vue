@@ -2,7 +2,7 @@
     <div style="width: 100%;height: 100%">
         <div>
             <h4>
-                测试画图
+                测试
             </h4>
         </div>
         <div>
@@ -90,14 +90,70 @@
             changecolor(color){
                 this.penColor = color;
             },
+
             checkeraser(){
                 this.eraserStatus = !this.eraserStatus;
                 if (this.eraserStatus) {
                     this.eraserTitle = "正在使用..."
+                    this.ctx.lineWidth = 20;
+                    this.ctx.globalCompositeOperation = "destination-out";
+                    let self=this;
+                    //console.log(this.canvas.getBoundingClientRect())
+                    //console.log(this.canvas.getBoundingClientRect())
+                    //return false;
+                    function getBoundingClientRect(x,y) {
+                        var box = self.canvas.getBoundingClientRect()//获取canvas的距离浏览器视窗的上下左右距离
+                        return {
+                            x:x-box.left,
+                            y:y-box.top
+                        }
+                    }
+
+                    this.canvas.onmousedown = function (e) {
+                        var first = getBoundingClientRect(e.clientX,e.clientY);
+                        self.ctx.save();
+                        self.ctx.beginPath();
+                        self.ctx.moveTo(first.x,first.y);
+                        self.drawing = true;
+
+                    }
+                    this.canvas.onmousemove = function (e) {
+                        if (self.drawing) {
+                            var move = getBoundingClientRect(e.clientX,e.clientY);
+                            self.ctx.lineTo(move.x,move.y);
+                            self.ctx.stroke();
+                            self.ctx.restore();
+                        }
+                    }
+                    this.canvas.onmouseup = function (e) {
+                        self.drawing = false;
+                    }
+
+                    this.canvas.onmouseleave = function (e) {
+                        self.drawing = false;
+                        //self.canvas.onmouseup();
+                    }
                 } else {
                     this.eraserTitle = "橡皮檫"
+                    this.ctx.globalCompositeOperation = "source-over";
+                    this.draw();
                 }
+                // this.$nextTick(()=>{
+                //     /*this.canvas=this.$refs.myCanvas;
+                //     this.img = this.$refs.myImg;
+                //     this.ctx = this.canvas.getContext("2d");
+                //     this.penWeight = 1;
+                //     this.penColor = 'yellow'
+                //     this.draw()*/
+                //
+                //     this.ctx.lineWidth = 20;
+                //
+                // });
+
+
             },
+
+
             
 
         },
