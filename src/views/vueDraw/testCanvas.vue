@@ -19,8 +19,11 @@
         <div>
             <input type="button" v-model="eraserTitle" @click="checkeraser()">
         </div>
+        <div>
+            <!--<input type="button" value="保存" @click="saveAsLocalImage()">-->
+        </div>
         <img v-show="false" ref="myImg" src="../../assets/logo.png" alt="">
-        <canvas ref="myCanvas" width="1300px" height="500px" style="border: 1px solid #c3c3c3">
+        <canvas id="canvas" ref="myCanvas" width="1300px" height="500px" style="border: 1px solid #c3c3c3">
             您的浏览器不支持HTML5 canvas标签
         </canvas>
 
@@ -80,6 +83,12 @@
                             self.canvas.onmousemove = null;
                             self.canvas.onmouseup = null;
                         }
+                    }
+
+                    self.canvas.onmouseleave = function (e) {
+                        self.ctx.closePath();
+                        self.canvas.onmousemove = null;
+                        self.canvas.onmouseup = null;
                     }
                 }
 
@@ -153,8 +162,25 @@
 
             },
 
+            saveAsLocalImage ()
+            {
+                /*let image = this.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                window.location.href = image;*/
+                var myCanvas = document.getElementById("canvas");
+                var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                //window.location.href=image;
+                this.downLoad(image);
+            },
+            downLoad(url){
+                var oA = document.createElement("a");
+                oA.download = '';// 设置下载的文件名，默认是'下载'
+                oA.href = url;
+                document.body.appendChild(oA);
+                oA.click();
+                oA.remove(); // 下载之后把创建的元素删除
+            },
 
-            
+
 
         },
         mounted(){
