@@ -20,7 +20,7 @@
             <input type="button" v-model="eraserTitle" @click="checkeraser()">
         </div>
         <div>
-            <!--<input type="button" value="保存" @click="saveAsLocalImage()">-->
+            <input type="button" value="保存" @click="saveAsLocalImage()">
         </div>
         <img v-show="false" ref="myImg" src="../../assets/logo.png" alt="">
         <canvas id="canvas" ref="myCanvas" width="1300px" height="500px" style="border: 1px solid #c3c3c3">
@@ -173,7 +173,7 @@
             },
             downLoad(url){
                 var oA = document.createElement("a");
-                oA.download = '';// 设置下载的文件名，默认是'下载'
+                oA.download = 'img.png';// 设置下载的文件名，默认是'下载'
                 oA.href = url;
                 document.body.appendChild(oA);
                 oA.click();
